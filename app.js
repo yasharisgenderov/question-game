@@ -1,32 +1,57 @@
 let questionsData = {
   q1: {
-    desc: "What color is the sky?",
-    answers: ["a) Blue", "b) Yellow", "c) Green"],
+    desc: "The code in The Matrix comes from what food recipes?",
+    answers: ["a) Sushi recipes", "b) Dumpling recipes", "c) Stir-fry recipes"],
     trueAnswer: "a",
   },
 
   q2: {
-    desc: "What do you call people who are 18+ ?",
-    answers: ["a) Baby", "b) Adult", "c) Person"],
-    trueAnswer: "b",
+    desc: "Who actually drew the sketch of Rose in Titanic ?",
+    answers: ["a) Leonardo DiCaprio", "b) Billy Zane", "c) James Cameron"],
+    trueAnswer: "c",
   },
 
   q3: {
-    desc: "What color is the tree?",
-    answers: ["a) Red", "b) Brown", "c) Green"],
+    desc: "Where were The Lord of the Rings movies filmed?",
+    answers: ["a)  Ireland", "b) Iceland", "c) New Zealand"],
     trueAnswer: "c",
   },
 
   q4: {
-    desc: "What do you call someone who has a wife?",
-    answers: ["a) Wife", "b) Husband", "c) Married"],
-    trueAnswer: "c",
+    desc: "Which is not the name of a child selected to tour the Wonka factory in Willy Wonka and the Chocolate Factory??",
+    answers: ["a) Billy Warp", "b) Veruca Salt", "c) Charlie Bucket"],
+    trueAnswer: "a",
   },
 
   q5: {
-    desc: "Which is the most us level in English?",
-    answers: ["a) B1", "b) C2", "c) A2"],
+    desc: "Which actor hasn’t played the Joker?",
+    answers: ["a) Jack Nicholson", "b) Sean Penn", "c) Jared Leto"],
     trueAnswer: "b",
+  },
+  q6: {
+    desc: "Who was the first Black person to win an Oscar?",
+    answers: ["a) Hattie McDaniel", "b) Sidney Poitier", "c) James Earl Jones"],
+    trueAnswer: "a",
+  },
+  q7: {
+    desc: "Who did the cat in The Godfather belong to?",
+    answers: ["a) Francis Ford Coppola", "b) Diane Keaton", "c) No one—the cat was a stray"],
+    trueAnswer: "c",
+  },
+  q8: {
+    desc: "What was the top-grossing movie of 2014?",
+    answers: ["a) The Hunger Games: Mockingjay Part 1", "b) Captain America: The Winter Soldier r", "c) Guardians of the Galaxy"],
+    trueAnswer: "c",
+  },
+  q9: {
+    desc: "What item is in every Fight Club scene?",
+    answers: ["a) A Coca-Cola can", "b) A Starbucks cup", "c) A Dunkin’ donut"],
+    trueAnswer: "b",
+  },
+  q10: {
+    desc: "If you watch the Marvel movies in chronological order, which movie would you watch first?",
+    answers: ["a) Iron Man", "b) Doctor Strange", "c) Captain America: The First Avenger"],
+    trueAnswer: "c",
   },
 };
 
@@ -34,6 +59,10 @@ class ProjectDoms {
   questionTitle = document.querySelector("#questionName");
   variants = document.querySelector("#variants");
   scorePanel = document.querySelector("#score");
+  questionNo = document.querySelector(".question-no")
+  gameTitle = document.querySelector(".game-title")
+  gameMenu = document.querySelector(".game-menu")
+  gameContent = document.querySelector(".gameContent")
 }
 
 class Question extends ProjectDoms {
@@ -46,16 +75,12 @@ class Question extends ProjectDoms {
   constructor(qdata) {
     super();
     this.questions = Object.values(qdata);
-    // console.log(this.questions[this.questionIndex].trueAnswer)
   }
 
   usersChoice(keyChoice) {
     if (this.correctAnswersVariants.indexOf(keyChoice) === -1) {
       alert("Please insert correct key");
     }
-    // this.questions[this.questionIndex].answers.map((q)=>{
-    //     console.log(q)
-    // })
     this.usersChoiceKey = keyChoice;
     
     if (this.usersChoiceKey === this.questions[this.questionIndex].trueAnswer) {
@@ -64,36 +89,30 @@ class Question extends ProjectDoms {
       this.scorePanel.innerHTML = `Your Score is : ${this.score}`
       this.nextQuestion();
       this.showQuestion()
+    }else{
+      this.score
+      this.questionIndex++
+      this.showQuestion()
+      this.scorePanel.innerHTML = `False.Your Score is : ${this.score}`
     }
 
     console.log(this.usersChoiceKey);
   }
 
-  //this.questions[this.questionIndex]=this.questions[this.questions.length-1]
-
-  questionDisplay() {
-    // if (!this.questions[this.questionIndex]) {
-    //   return;
-    // }
-    console.log(this.questions)
-    
-    if (this.questions[this.questionIndex] === this.questions[this.questions.length]) {
-        this.resetGame();
-        // this.questionDisplay();
-    }
-    console.log(this.questions[this.questionIndex]);
-  }
-
   nextQuestion() {
-    this.questionIndex++; 
-    this.questionDisplay();
+    this.questionIndex++;
+    this.showQuestion();
   }
 
   showQuestion(){
+    if (this.questions[this.questionIndex] === this.questions[this.questions.length]) {
+      this.resetGame();
+  }
+    this.questionNo.innerHTML = `Question ${this.questionIndex+1}`
     this.questionTitle.innerHTML = this.questions[this.questionIndex].desc
     this.variants.innerHTML = this.questions[this.questionIndex].answers.map((q, i) => {
       return `
-      <span>${q}</span>
+      <span class="bg-dark text-light ml-5 text-center" style="width:250px;font-size:32px;">${q}</span>
       `
     })
     .join("");
@@ -101,16 +120,17 @@ class Question extends ProjectDoms {
   }
 
   resetGame(){
-    //   alert("Your game has finished");
     this.questionIndex = 0;
-    this.scorePanel.innerHTML = `Your final score is ${this.score}`
+    this.gameTitle.setAttribute("class","container d-flex justify-content-center align-items-center flex-column")
+    this.gameMenu.setAttribute("class","d-flex flex-column text-center h1")
+    this.gameContent.setAttribute("class","jumbotron jumbotron-fluid d-none")
+    this.variants.setAttribute("class","d-none")
+    this.scorePanel.innerHTML = `Your final score is : ${this.score}`
     this.score = 0;
-    // this.questionDisplay();
   }
 }
 
 let question = new Question(questionsData);
-question.questionDisplay();
 question.showQuestion()
 
 window.onkeydown = function (e) {
