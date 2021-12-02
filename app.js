@@ -40,7 +40,7 @@ let questionsData = {
   },
   q8: {
     desc: "What was the top-grossing movie of 2014?",
-    answers: ["a) The Hunger Games: Mockingjay Part 1", "b) Captain America: The Winter Soldier r", "c) Guardians of the Galaxy"],
+    answers: ["a) The Hunger Games: Mockingjay Part 1", "b) Captain America: The Winter Soldier", "c) Guardians of the Galaxy"],
     trueAnswer: "c",
   },
   q9: {
@@ -112,7 +112,7 @@ class Question extends ProjectDoms {
     this.questionTitle.innerHTML = this.questions[this.questionIndex].desc
     this.variants.innerHTML = this.questions[this.questionIndex].answers.map((q, i) => {
       return `
-      <span class="bg-dark text-light ml-5 text-center" style="width:250px;font-size:32px;">${q}</span>
+      <span class="bg-dark text-light ml-5 text-center" style="width:250px;font-size:25px;">${q}</span>
       `
     })
     .join("");
@@ -120,7 +120,6 @@ class Question extends ProjectDoms {
   }
 
   resetGame(){
-    this.questionIndex = 0;
     this.gameTitle.setAttribute("class","container d-flex justify-content-center align-items-center flex-column")
     this.gameMenu.setAttribute("class","d-flex flex-column text-center h1")
     this.gameContent.setAttribute("class","jumbotron jumbotron-fluid d-none")
