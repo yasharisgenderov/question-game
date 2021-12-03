@@ -63,12 +63,14 @@ class ProjectDoms {
   gameTitle = document.querySelector(".game-title")
   gameMenu = document.querySelector(".game-menu")
   gameContent = document.querySelector(".gameContent")
+  progBar = document.querySelector(".prog-bar")
 }
 
 class Question extends ProjectDoms {
   questions = [];
   questionIndex = 0;
   score = 0;
+  barScore = 0;
   usersChoiceKey = null;
   correctAnswersVariants = ["a", "b", "c"];
 
@@ -85,7 +87,9 @@ class Question extends ProjectDoms {
     
     if (this.usersChoiceKey === this.questions[this.questionIndex].trueAnswer) {
       this.score += 10;
+      this.barScore += 10;
       console.log(this.score)
+      this.progBar.setAttribute("style",`width:${this.barScore}%`)
       this.scorePanel.innerHTML = `Your Score is : ${this.score}`
       this.nextQuestion();
       this.questionDisplay()
@@ -125,6 +129,8 @@ class Question extends ProjectDoms {
     this.gameContent.setAttribute("class","jumbotron jumbotron-fluid d-none")
     this.variants.setAttribute("class","d-none")
     this.scorePanel.innerHTML = `Your final score is : ${this.score}`
+    this.barScore = 0;
+    this.progBar.setAttribute("style",`width:${this.barScore}%`)
     this.score = 0;
   }
 }
