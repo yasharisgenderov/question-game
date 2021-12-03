@@ -1,4 +1,4 @@
-let questionsData = {
+let triviaData = {
   q1: {
     desc: "The code in The Matrix comes from what food recipes?",
     answers: ["a) Sushi recipes", "b) Dumpling recipes", "c) Stir-fry recipes"],
@@ -88,11 +88,11 @@ class Question extends ProjectDoms {
       console.log(this.score)
       this.scorePanel.innerHTML = `Your Score is : ${this.score}`
       this.nextQuestion();
-      this.showQuestion()
+      this.questionDisplay()
     }else{
       this.score
       this.questionIndex++
-      this.showQuestion()
+      this.questionDisplay()
       this.scorePanel.innerHTML = `False.Your Score is : ${this.score}`
     }
 
@@ -101,10 +101,10 @@ class Question extends ProjectDoms {
 
   nextQuestion() {
     this.questionIndex++;
-    this.showQuestion();
+    this.questionDisplay();
   }
 
-  showQuestion(){
+  questionDisplay(){
     if (this.questions[this.questionIndex] === this.questions[this.questions.length]) {
       this.resetGame();
   }
@@ -129,8 +129,8 @@ class Question extends ProjectDoms {
   }
 }
 
-let question = new Question(questionsData);
-question.showQuestion()
+let question = new Question(triviaData);
+question.questionDisplay()
 
 window.onkeydown = function (e) {
   question.usersChoice(e.key);
