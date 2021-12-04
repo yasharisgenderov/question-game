@@ -55,10 +55,6 @@ let triviaData = {
   },
 };
 
-document.querySelector('#exitButton').addEventListener('click', () => {
-  window.close()
-})
-
 class ProjectDoms {
   questionTitle = document.querySelector("#questionName");
   variants = document.querySelector("#variants");
@@ -82,6 +78,10 @@ class Question extends ProjectDoms {
   constructor(qdata) {
     super();
     this.questions = Object.values(qdata);
+  }
+
+  startGame(){
+    
   }
 
   usersChoice(keyChoice) {
@@ -142,6 +142,8 @@ class Question extends ProjectDoms {
 
 let question = new Question(triviaData);
 question.questionDisplay()
+
+
 
 window.onkeydown = function (e) {
   question.usersChoice(e.key);
