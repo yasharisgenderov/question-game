@@ -84,6 +84,11 @@ class Question extends ProjectDoms {
     
   }
 
+  progressBar(){
+    this.barScore += 10;
+    this.progBar.setAttribute("style",`width:${this.barScore}%`)
+  }
+
   usersChoice(keyChoice) {
     if (this.correctAnswersVariants.indexOf(keyChoice) === -1) {
       alert("Please insert correct key");
@@ -92,21 +97,20 @@ class Question extends ProjectDoms {
     
     if (this.usersChoiceKey === this.questions[this.questionIndex].trueAnswer) {
       this.score += 10;
-      this.barScore += 10;
-      console.log(this.score)
-      this.progBar.setAttribute("style",`width:${this.barScore}%`)
       this.scorePanel.innerHTML = `Your Score is : ${this.score}`
+      this.progressBar();
       this.nextQuestion();
       this.questionDisplay()
     }else{
       this.score
       this.questionIndex++
+      this.progressBar();
       this.questionDisplay()
       this.scorePanel.innerHTML = `False.Your Score is : ${this.score}`
     }
-
-    console.log(this.usersChoiceKey);
   }
+
+  
 
   nextQuestion() {
     this.questionIndex++;
